@@ -16,13 +16,13 @@ const db = mysql.createConnection(
       database: 'employee_db'
     },
     console.log(`Connected to the employee database.`)
-  );
+  ).promise(); // Using promises for async/await support
 
   // logo.js
 const asciiLogo = require("asciiart-logo");
 
 const logo = asciiLogo({
-  name: "Art Studio",
+  name: "FunkE Art Studio",
   font: "Doom",
   lineChars: 20,
   padding: 2,
@@ -39,10 +39,10 @@ db.connect((err) => {
   });
 
 // Display the main menu
-function mainMenu() {
-    inquirer
-      .prompt([
-        {
+async function mainMenu() {
+    try {
+        const answers = await inquirer.prompt([
+          {
           type: 'list',
           name: 'action',
           message: 'What would you like to do?',
@@ -57,155 +57,54 @@ function mainMenu() {
             'Exit',
           ],
         },
-      ])
-      .then((answers) => {
-        switch (answers.action) {
+      ]);
+
+      switch (answers.action) {
           case 'View All Employees':
-            viewAllEmployees();
+            await viewAllEmployees();
             break;
           case 'Add Employee':
-            addEmployee();
+            await addEmployee();
             break;
           case 'Update Employee Role':
-            updateRole();
+            await updateRole();
             break;
           case 'View All Roles':
-            allRoles();
+            await allRoles();
             break;
           case 'Add Role':
-            addRole();
+            await addRole();
             break;
           case 'View All Departments':
-            allDepartments();
+            await allDepartments();
             break;
           case 'Add Department':
-            addDepartment();
+            await addDepartment();
             break;
           case 'Exit':
             console.log('Goodbye!');
-            connection.end();
+            db.end(); // Close the database connection before exiting
             break;
         }
-      });
+    } catch (err) {
+        console.error('Error', err.message);
+        db.end(); // Close the database connection in case of an error
+      }
   }
 
 // create functions for answers actions
 
-function viewAllEmployees() {
-    const query =
-      "SELECT employees.id, employees.first_name, employees.last_name, roles.title AS title, departments.name AS department FROM employees INNER JOIN roles ON employees.role_id = roles.id INNER JOIN departments ON roles.department_id = departments.id";
-    connection.query(query, (err, results) => {
+async function viewAllEmployees() {
+    const [employees] = await
+    db.query ("SELECT employees.id, employees.first_name, employees.last_name, roles.title AS title, departments.name AS department FROM employees INNER JOIN roles ON employees.role_id = roles.id INNER JOIN departments ON roles.department_id = departments.id");
       if (err) {
         console.error("Could not retrieve employees", err);
         mainMenu();
         return;
       }
       // Display employees in a table
-      console.table(results);
-      mainMenu();
-    });
-  }
+      console.table(employees);
+      await mainMenu(); // Show the main menu again
+    }
 
-  function viewAllEmployees() {
-    const query =
-      "SELECT employees.id, employees.first_name, employees.last_name, roles.title AS title, departments.name AS department FROM employees INNER JOIN roles ON employees.role_id = roles.id INNER JOIN departments ON roles.department_id = departments.id";
-    connection.query(query, (err, results) => {
-      if (err) {
-        console.error("Could not retrieve employees", err);
-        mainMenu();
-        return;
-      }
-      // Display employees in a table
-      console.table(results);
-      mainMenu();
-    });
-  }
-
-  function viewAllEmployees() {
-    const query =
-      "SELECT employees.id, employees.first_name, employees.last_name, roles.title AS title, departments.name AS department FROM employees INNER JOIN roles ON employees.role_id = roles.id INNER JOIN departments ON roles.department_id = departments.id";
-    connection.query(query, (err, results) => {
-      if (err) {
-        console.error("Could not retrieve employees", err);
-        mainMenu();
-        return;
-      }
-      // Display employees in a table
-      console.table(results);
-      mainMenu();
-    });
-  }
-  function viewAllEmployees() {
-    const query =
-      "SELECT employees.id, employees.first_name, employees.last_name, roles.title AS title, departments.name AS department FROM employees INNER JOIN roles ON employees.role_id = roles.id INNER JOIN departments ON roles.department_id = departments.id";
-    connection.query(query, (err, results) => {
-      if (err) {
-        console.error("Could not retrieve employees", err);
-        mainMenu();
-        return;
-      }
-      // Display employees in a table
-      console.table(results);
-      mainMenu();
-    });
-  }
-
-  function viewAllEmployees() {
-    const query =
-      "SELECT employees.id, employees.first_name, employees.last_name, roles.title AS title, departments.name AS department FROM employees INNER JOIN roles ON employees.role_id = roles.id INNER JOIN departments ON roles.department_id = departments.id";
-    connection.query(query, (err, results) => {
-      if (err) {
-        console.error("Could not retrieve employees", err);
-        mainMenu();
-        return;
-      }
-      // Display employees in a table
-      console.table(results);
-      mainMenu();
-    });
-  }
-
-  function viewAllEmployees() {
-    const query =
-      "SELECT employees.id, employees.first_name, employees.last_name, roles.title AS title, departments.name AS department FROM employees INNER JOIN roles ON employees.role_id = roles.id INNER JOIN departments ON roles.department_id = departments.id";
-    connection.query(query, (err, results) => {
-      if (err) {
-        console.error("Could not retrieve employees", err);
-        mainMenu();
-        return;
-      }
-      // Display employees in a table
-      console.table(results);
-      mainMenu();
-    });
-  }
-
-  function viewAllEmployees() {
-    const query =
-      "SELECT employees.id, employees.first_name, employees.last_name, roles.title AS title, departments.name AS department FROM employees INNER JOIN roles ON employees.role_id = roles.id INNER JOIN departments ON roles.department_id = departments.id";
-    connection.query(query, (err, results) => {
-      if (err) {
-        console.error("Could not retrieve employees", err);
-        mainMenu();
-        return;
-      }
-      // Display employees in a table
-      console.table(results);
-      mainMenu();
-    });
-  }
-
-  function viewAllEmployees() {
-    const query =
-      "SELECT employees.id, employees.first_name, employees.last_name, roles.title AS title, departments.name AS department FROM employees INNER JOIN roles ON employees.role_id = roles.id INNER JOIN departments ON roles.department_id = departments.id";
-    connection.query(query, (err, results) => {
-      if (err) {
-        console.error("Could not retrieve employees", err);
-        mainMenu();
-        return;
-      }
-      // Display employees in a table
-      console.table(results);
-      mainMenu();
-    });
-  }
+    mainMenu();
