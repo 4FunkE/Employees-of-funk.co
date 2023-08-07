@@ -8,7 +8,7 @@ USE employee_db;
 -- Creates the table "department" within employee_db
 CREATE TABLE department (
   -- Creates a numeric column called "id"
-  id INT PRIMARY KEY,
+  id INT AUTO_INCREMENT PRIMARY KEY,
   -- Makes a string column up to 30 characters called "name" which cannot contain null
   name VARCHAR(30) NOT NULL
 );
@@ -25,7 +25,7 @@ CREATE TABLE role (
 --   Makes a column called "department_id" entered as an interger
   department_id INT NOT NULL,
 --   the department_id connects to the dapartment tables, id sections
-FOREIGN KEY (department_id) REFERENCES departments (id)
+FOREIGN KEY (department_id) REFERENCES department(id)
 );
 
 -- Creates the table "employee" within employee_db
@@ -41,7 +41,7 @@ CREATE TABLE employee (
   -- Makes a column called "manager_id" entered as an interger, null if employye has no manager
   manager_id INT,
 --   the role_id connects to the table role to its ID
-  FOREIGN KEY (role_id) REFERENCES roles (id),
+  FOREIGN KEY (role_id) REFERENCES role(id),
 -- the manager_id connects to their employees table ID
-  FOREIGN KEY (manager_id) REFERENCES department (id)
+  FOREIGN KEY (manager_id) REFERENCES employee(id)
 );
