@@ -70,13 +70,13 @@ async function mainMenu() {
             await updateRole();
             break;
           case 'View All Roles':
-            await allRoles();
+            await viewAllRoles();
             break;
           case 'Add Role':
             await addRole();
             break;
           case 'View All Departments':
-            await allDepartments();
+            await viewAllDepartments();
             break;
           case 'Add Department':
             await addDepartment();
@@ -95,16 +95,15 @@ async function mainMenu() {
 // create functions for answers actions
 
 async function viewAllEmployees() {
-    const [employees] = await
-    db.query ("SELECT employees.id, employees.first_name, employees.last_name, roles.title AS title, departments.name AS department FROM employees INNER JOIN roles ON employees.role_id = roles.id INNER JOIN departments ON roles.department_id = departments.id");
-      if (err) {
-        console.error("Could not retrieve employees", err);
-        mainMenu();
-        return;
-      }
-      // Display employees in a table
+    try {
+      const [employees] = await db.query(
+        "SELECT employees.id, employees.first_name, employees.last_name, roles.title AS title, departments.name AS department FROM employees INNER JOIN roles ON employees.role_id = roles.id INNER JOIN departments ON roles.department_id = departments.id"
+      );
       console.table(employees);
-      await mainMenu(); // Show the main menu again
+    } catch (err) {
+      console.error("Could not retrieve employees", err);
     }
+    await mainMenu(); // Show the main menu again
+  }
 
     mainMenu();
