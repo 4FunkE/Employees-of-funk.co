@@ -198,13 +198,13 @@ async function viewAllDepartments() {
             } else {
               console.log("Employee added successfully.");
             }
-            startApp();
+            mainMenu();
           }
         );
       })
       .catch((error) => {
         console.error("Error:", error);
-        startApp();
+        mainMenu();
       });
   }
 
@@ -259,13 +259,49 @@ async function viewAllDepartments() {
             } else {
               console.log("Role added successfully.");
             }
-            startApp();
+            mainMenu();
           }
         );
       })
       .catch((error) => {
         console.error("Error:", error);
-        startApp();
+        mainMenu();
+      });
+  }
+
+  
+  function addDepartment() {
+    inquirer
+      .prompt({
+        type: "input",
+        name: "departmentName",
+        message: "Enter the name of the department",
+        validate: (input) => {
+          if (input.trim() !== "") {
+            return true;
+          } else {
+            return "Please enter a department name.";
+          }
+        },
+      })
+      .then((answers) => {
+        const departmentName = answers.departmentName;
+        connection.query(
+          "INSERT INTO departments (name) VALUES (?)",
+          [departmentName],
+          (err) => {
+            if (err) {
+              console.err("Error adding department:", err);
+            } else {
+              console.log(" Department added succesfully.");
+            }
+            mainMenu();
+          }
+        );
+      })
+      .catch((error) => {
+        console.error("Error:", error);
+        mainMenu();
       });
   }
 
