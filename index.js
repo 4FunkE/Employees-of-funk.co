@@ -77,3 +77,18 @@ function mainMenu() {
   }
 
 // create functions for answers actions
+
+function viewAllEmployees() {
+    const query =
+      "SELECT employees.id, employees.first_name, employees.last_name, roles.title AS title, departments.name AS department FROM employees INNER JOIN roles ON employees.role_id = roles.id INNER JOIN departments ON roles.department_id = departments.id";
+    connection.query(query, (err, results) => {
+      if (err) {
+        console.error("Could not retrieve employees", err);
+        mainMenu();
+        return;
+      }
+      // Display employees in a table
+      console.table(results);
+      mainMenu();
+    });
+  }
