@@ -107,7 +107,7 @@ async function viewAllEmployees() {
     }
     await mainMenu(); // Show the main menu again
   }
-
+  
 // function to view all departments
 async function viewAllDepartments() {
     try {
@@ -135,7 +135,7 @@ async function viewAllDepartments() {
     mainMenu();
   }
 
-  // function to add an Employee
+// function to add an Employee
   async function addEmployee() {
     try {
       const answers = await inquirer.prompt([
@@ -188,6 +188,7 @@ async function viewAllDepartments() {
   await mainMenu();
 }
 
+// function to add a role
 async function addRole() {
     try {
         const answers = await inquirer.prompt([
@@ -205,7 +206,7 @@ async function addRole() {
           },
         {
           type: "input",
-          name: "profits",
+          name: "income",
           message: "What is the salary of the role?",
           validate: (input) => {
             if (input.trim() !== "" && !isNaN(input)) {
@@ -222,10 +223,10 @@ async function addRole() {
           choices: ["Painting", "Sculpture", "Photography", "Printmaking", "Drawing", "Ceramics"],
         },
     ]);
-    const { title, profits, department_id } = answers;
+    const { title, income, department_id } = answers;
     await connection.query(
       "INSERT INTO roles (title , salary, department_id) VALUES (?,?,?)",
-      [title, profits, department_id]
+      [title, income, department_id]
     );
     console.log("Role added successfully.");
   } catch (error) {
@@ -234,7 +235,7 @@ async function addRole() {
   await mainMenu();
 }
 
-  
+// function to add a Department
 async function addDepartment() {
     try {
       const answers = await inquirer.prompt({
@@ -262,5 +263,89 @@ async function addDepartment() {
     await mainMenu();
   }
 
+//function to updateemployee record
+async function updateRole() {
+    try {
+      const answers = await inquirer.prompt([
+        {
+          type: "list",
+          name: "id",
+          message: "Which employee role do you want to update?",
+          choices: ["Emily Funk", "Brandon Cruz", "Brie Funk", "Athena Cruz", "Noemi Bou", "Kevin Funk", "Olivia Funk", "Andy BLuz", "Alex Lemons", "Cris Beatz"],
+        },
+        {
+          type: "list",
+          name: "roleName",
+          message: "which role would you like to assign the selected employee?",
+          choices: ["Art Instructor", "Studio Manager", "Sculpture Artist", "Photographer","Printmaker", "Drawing Instructor", "Ceramics Artist", "Gallery Curator", "Art Educator", "Art Researcher"],
+        },
+    ]);
+
+    const { id, roleName } = answers;
+    let query;
+    let value;
+
+    switch (roleName) {
+        case "First Name":
+          query = "UPDATE employees SET first_name = ? WHERE id = ?";
+          value = await inquirer.prompt({
+            type: "input",
+            name: "firstName",
+            message: "Enter the new first name:",
+            validate: (input) => {
+              if (input.trim() !== "") {
+                return true;
+              } else {
+                return "Please enter a first name.";
+              }
+            },
+          });
+          value = value.firstName;
+          break;
+        case "Last Name":
+          query = "UPDATE employees SET last_name = ? WHERE id = ?";
+          value = await inquirer.prompt({
+            type: "input",
+            name: "lastName",
+            message: "Enter the new last name:",
+            validate: (input) => {
+              if (input.trim() !== "") {
+                return true;
+              } else {
+                return "Please enter a last name.";
+              }
+            },
+          });
+          value = value.lastName;
+          break;
+        case "Role ID":
+          query = "UPDATE employees SET role_id = ? WHERE id = ?";
+          value = await inquirer.prompt({
+            type: "input",
+            name: "roleId",
+            message: "Enter the new role ID:",
+            validate: (input) => {
+              if (input.trim() !== "" && !isNaN(input)) {
+                return true;
+              } else {
+                return "Please enter a valid role ID.";
+              }
+            },
+          });
+          value = value.roleId;
+          break;
+        default:
+          break;
+      }
+  
+      await connection.query(query, [value, id]);
+  
+      console.log("Employee updated successfully.");
+    } catch (error) {
+      console.error("Error:", error);
+    }
+  
+    await mainMenu();
+  }
 
   mainMenu();
