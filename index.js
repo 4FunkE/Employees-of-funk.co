@@ -208,6 +208,66 @@ async function viewAllDepartments() {
       });
   }
 
+  function addRole() {
+    inquirer
+      .prompt([
+        {
+          type: "input",
+          name: "title",
+          message: "Enter the title of the new role:",
+          validate: (input) => {
+            if (input.trim() !== "") {
+              return true;
+            } else {
+              return "Please enter a role title.";
+            }
+          },
+        },
+        {
+          type: "input",
+          name: "profits",
+          message: "Enter the salary of the new role:",
+          validate: (input) => {
+            if (input.trim() !== "" && !isNaN(input)) {
+              return true;
+            } else {
+              return "Please enter a valid salary amount.";
+            }
+          },
+        },
+        {
+          type: "input",
+          name: "department_id",
+          message: "Enter department ID:",
+          validate: (input) => {
+            if (input.trim() !== "" && !isNaN(input)) {
+              return true;
+            } else {
+              return "Please enter a valid department ID.";
+            }
+          },
+        },
+      ])
+      .then((answers) => {
+        const { title, profits, department_id } = answers;
+        connection.query(
+          "INSERT INTO roles (title , salary, department_id) VALUES (?,?,?)",
+          [title, profits, department_id],
+          (err) => {
+            if (err) {
+              console.error("Error adding role:", err);
+            } else {
+              console.log("Role added successfully.");
+            }
+            startApp();
+          }
+        );
+      })
+      .catch((error) => {
+        console.error("Error:", error);
+        startApp();
+      });
+  }
 
 
   mainMenu();
