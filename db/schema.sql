@@ -43,5 +43,5 @@ CREATE TABLE employee (
 --   the role_id connects to the table role to its ID
   FOREIGN KEY (role_id) REFERENCES roles (id),
 -- the manager_id connects to their employees table ID
-  FOREIGN KEY (manager_id) REFERENCES employees (id)
+  FOREIGN KEY (manager_id) REFERENCES department (id)
 );
