@@ -45,3 +45,35 @@ function mainMenu() {
           ],
         },
       ])
+      .then((answers) => {
+        switch (answers.action) {
+          case 'View All Employees':
+            viewAllEmployees();
+            break;
+          case 'Add Employee':
+            addEmployee();
+            break;
+          case 'Update Employee Role':
+            updateRole();
+            break;
+          case 'View All Roles':
+            allRoles();
+            break;
+          case 'Add Role':
+            addRole();
+            break;
+          case 'View All Departments':
+            allDepartments();
+            break;
+          case 'Add Department':
+            addDepartment();
+            break;
+          case 'Exit':
+            console.log('Goodbye!');
+            connection.end();
+            break;
+        }
+      });
+  }
+
+// create functions for answers actions
