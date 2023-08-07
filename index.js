@@ -135,9 +135,10 @@ async function viewAllDepartments() {
     mainMenu();
   }
 
-  function addEmployee() {
-    inquirer
-      .prompt([
+  // function to add an Employee
+  async function addEmployee() {
+    try {
+      const answers = await inquirer.prompt([
         {
           type: "input",
           name: "firstName",
@@ -163,70 +164,49 @@ async function viewAllDepartments() {
           },
         },
         {
-          type: "input",
+          type: "list",
           name: "roleId",
-          message: "Enter the employee's role ID:",
-          validate: (input) => {
-            if (input.trim() !== "" && !isNaN(input)) {
-              return true;
-            } else {
-              return "Please enter a valid role ID.";
-            }
-          },
+          message: "What is the employee's role?",
+          choices: ["Art Instructor", "Studio Manager", "Sculpture Artist", "Photographer","Printmaker", "Drawing Instructor", "Ceramics Artist", "Gallery Curator", "Art Educator", "Art Researcher"],
         },
         {
-          type: "input",
+          type: "list",
           name: "managerId",
-          message: "Enter the employee's manager ID:",
-          validate: (input) => {
-            if (input.trim() !== "" && !isNaN(input)) {
-              return true;
-            } else {
-              return "Please enter a valid manager ID.";
-            }
-          },
+          message: "Who is the employee's manager?",
+          choices: ["Emily Funk", "Brandon Cruz", "Athena Cruz", "Noemi Bou", "Kevin Funk", "Olivia Funk"],
         },
-      ])
-      .then((answers) => {
-        const { firstName, lastName, roleId, managerId } = answers;
-        connection.query(
-          "INSERT INTO employees (first_name, last_name, role_id, manager_id) VALUES (?, ?, ?, ?)",
-          [firstName, lastName, roleId, managerId],
-          (err) => {
-            if (err) {
-              console.error("Error adding employee:", err);
-            } else {
-              console.log("Employee added successfully.");
-            }
-            mainMenu();
-          }
-        );
-      })
-      .catch((error) => {
-        console.error("Error:", error);
-        mainMenu();
-      });
+    ]);
+    const { firstName, lastName, roleId, managerId } = answers;
+    await connection.query(
+      "INSERT INTO employees (first_name, last_name, role_id, manager_id) VALUES (?, ?, ?, ?)",
+      [firstName, lastName, roleId, managerId]
+    );
+    console.log("Employee added successfully!");
+  } catch (error) {
+    console.error("Error:", error);
   }
+  await mainMenu();
+}
 
-  function addRole() {
-    inquirer
-      .prompt([
-        {
-          type: "input",
-          name: "title",
-          message: "Enter the title of the new role:",
-          validate: (input) => {
-            if (input.trim() !== "") {
-              return true;
-            } else {
-              return "Please enter a role title.";
-            }
+async function addRole() {
+    try {
+        const answers = await inquirer.prompt([
+          {
+            type: "input",
+            name: "title",
+            message: "What is the name of the role?",
+            validate: (input) => {
+              if (input.trim() !== "") {
+                return true;
+              } else {
+                return "Please enter a role name.";
+              }
+            },
           },
-        },
         {
           type: "input",
           name: "profits",
-          message: "Enter the salary of the new role:",
+          message: "What is the salary of the role?",
           validate: (input) => {
             if (input.trim() !== "" && !isNaN(input)) {
               return true;
@@ -236,46 +216,31 @@ async function viewAllDepartments() {
           },
         },
         {
-          type: "input",
+          type: "list",
           name: "department_id",
-          message: "Enter department ID:",
-          validate: (input) => {
-            if (input.trim() !== "" && !isNaN(input)) {
-              return true;
-            } else {
-              return "Please enter a valid department ID.";
-            }
-          },
+          message: "What department does the role belong to?",
+          choices: ["Painting", "Sculpture", "Photography", "Printmaking", "Drawing", "Ceramics"],
         },
-      ])
-      .then((answers) => {
-        const { title, profits, department_id } = answers;
-        connection.query(
-          "INSERT INTO roles (title , salary, department_id) VALUES (?,?,?)",
-          [title, profits, department_id],
-          (err) => {
-            if (err) {
-              console.error("Error adding role:", err);
-            } else {
-              console.log("Role added successfully.");
-            }
-            mainMenu();
-          }
-        );
-      })
-      .catch((error) => {
-        console.error("Error:", error);
-        mainMenu();
-      });
+    ]);
+    const { title, profits, department_id } = answers;
+    await connection.query(
+      "INSERT INTO roles (title , salary, department_id) VALUES (?,?,?)",
+      [title, profits, department_id]
+    );
+    console.log("Role added successfully.");
+  } catch (error) {
+    console.error("Error:", error);
   }
+  await mainMenu();
+}
 
   
-  function addDepartment() {
-    inquirer
-      .prompt({
+async function addDepartment() {
+    try {
+      const answers = await inquirer.prompt({
         type: "input",
         name: "departmentName",
-        message: "Enter the name of the department",
+        message: "What is the name of the department",
         validate: (input) => {
           if (input.trim() !== "") {
             return true;
@@ -283,26 +248,18 @@ async function viewAllDepartments() {
             return "Please enter a department name.";
           }
         },
-      })
-      .then((answers) => {
-        const departmentName = answers.departmentName;
-        connection.query(
-          "INSERT INTO departments (name) VALUES (?)",
-          [departmentName],
-          (err) => {
-            if (err) {
-              console.err("Error adding department:", err);
-            } else {
-              console.log(" Department added succesfully.");
-            }
-            mainMenu();
-          }
-        );
-      })
-      .catch((error) => {
-        console.error("Error:", error);
-        mainMenu();
       });
+  
+      const departmentName = answers.departmentName;
+      await connection.query(
+        "INSERT INTO departments (name) VALUES (?)",
+        [departmentName]
+      );
+      console.log("Department added successfully!");
+    } catch (error) {
+      console.error("Error:", error);
+    }
+    await mainMenu();
   }
 
 
