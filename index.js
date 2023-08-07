@@ -93,11 +93,13 @@ async function mainMenu() {
   }
 
 // create functions for answers actions
-
+// function to view all Emloyees
 async function viewAllEmployees() {
     try {
       const [employees] = await db.query(
-        "SELECT employees.id, employees.first_name, employees.last_name, roles.title AS title, departments.name AS department FROM employees INNER JOIN roles ON employees.role_id = roles.id INNER JOIN departments ON roles.department_id = departments.id"
+        `SELECT employees.id, employees.first_name, employees.last_name, roles.title AS title, departments.name AS department 
+        FROM employees 
+        INNER JOIN roles ON employees.role_id = roles.id INNER JOIN departments ON roles.department_id = departments.id`
       );
       console.table(employees);
     } catch (err) {
@@ -106,4 +108,36 @@ async function viewAllEmployees() {
     await mainMenu(); // Show the main menu again
   }
 
+// function to view all departments
+async function viewAllDepartments() {
+    try {
+      const [results] = await connection.query("SELECT * FROM departments");
+      console.table(results);
+    } catch (err) {
+      console.error("Error retrieving departments: ", err);
+    }
     mainMenu();
+  }
+  
+  // function to view all roles if available
+  async function viewAllRoles() {
+    const query = `
+      SELECT roles.id, roles.title AS title, roles.salary, departments.name AS department
+      FROM roles
+      INNER JOIN departments ON roles.department_id = departments.id
+    `;
+    try {
+      const [results] = await connection.query(query);
+      console.table(results);
+    } catch (err) {
+      console.error("Error retrieving roles: ", err);
+    }
+    mainMenu();
+  }
+
+
+
+
+
+
+  mainMenu();
