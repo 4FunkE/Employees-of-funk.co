@@ -135,8 +135,78 @@ async function viewAllDepartments() {
     mainMenu();
   }
 
-
-
+  function addEmployee() {
+    inquirer
+      .prompt([
+        {
+          type: "input",
+          name: "firstName",
+          message: "Enter the employee's first name:",
+          validate: (input) => {
+            if (input.trim() !== "") {
+              return true;
+            } else {
+              return "Please enter the first name.";
+            }
+          },
+        },
+        {
+          type: "input",
+          name: "lastName",
+          message: "Enter the employee's last name:",
+          validate: (input) => {
+            if (input.trim() !== "") {
+              return true;
+            } else {
+              return "Please enter the last name.";
+            }
+          },
+        },
+        {
+          type: "input",
+          name: "roleId",
+          message: "Enter the employee's role ID:",
+          validate: (input) => {
+            if (input.trim() !== "" && !isNaN(input)) {
+              return true;
+            } else {
+              return "Please enter a valid role ID.";
+            }
+          },
+        },
+        {
+          type: "input",
+          name: "managerId",
+          message: "Enter the employee's manager ID:",
+          validate: (input) => {
+            if (input.trim() !== "" && !isNaN(input)) {
+              return true;
+            } else {
+              return "Please enter a valid manager ID.";
+            }
+          },
+        },
+      ])
+      .then((answers) => {
+        const { firstName, lastName, roleId, managerId } = answers;
+        connection.query(
+          "INSERT INTO employees (first_name, last_name, role_id, manager_id) VALUES (?, ?, ?, ?)",
+          [firstName, lastName, roleId, managerId],
+          (err) => {
+            if (err) {
+              console.error("Error adding employee:", err);
+            } else {
+              console.log("Employee added successfully.");
+            }
+            startApp();
+          }
+        );
+      })
+      .catch((error) => {
+        console.error("Error:", error);
+        startApp();
+      });
+  }
 
 
 
