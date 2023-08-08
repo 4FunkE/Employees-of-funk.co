@@ -147,7 +147,7 @@ async function getRoleIdByTitle(roleTitle) {
       console.error(`Role with title "${roleTitle}" not found.`);
       return null; // Return a default value (null) to handle the missing role.
     }
-    return result[0].id;
+    return result[0][0].id;
   } catch (error) {
     console.error('Error fetching roleId:', error);
     return null; // Return a default value (null) to handle any errors.

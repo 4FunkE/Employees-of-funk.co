@@ -2,18 +2,23 @@
 
 ## Description
 
-Provide a short description explaining the what, why, and how of your project. Use the following questions as a guide:
+Welcome to Funk.co, where we prioritize the organization and cleanliness of our employee database. Our project revolves around the utilization of SQL, enabling seamless updates to our employee database. This application streamlines company operations, ensuring that crucial databases are effortlessly accessible to both employees and managers.
 
-- What was your motivation?
-- Why did you build this project? (Note: the answer is not "Because it was a homework assignment.")
-- What problem does it solve?
-- What did you learn?
+### Key Features:
+
+- Simplified Employee Database: Effortlessly manage employee records through our user-friendly application.
+- Smooth Company Operations: Our application optimizes workflows, promoting efficiency and reducing potential complications.
+- Seamless Accessibility: Vital databases are at your fingertips, enhancing accessibility for both employees and managers.
+
+Through this project, I gained valuable insights into connecting the server.js with schema files, enabling seamless access and interactions with databases. Our commitment to an organized and efficient employee database remains unwavering.
+
+Thank you for choosing Funk.co for your employee database needs. We look forward to delivering enhanced organization and efficiency to your company's processes.
 
 ## Table of Contents
 
 - [Installation](#installation)
 - [Usage Instruction](#usage-instruction)
-- [Deployed Application Link](#deployed-application-link)
+- [Walkthrough Video:](#walkthrough-video)
 - [GitHub Repository](#github-repository)
 - [Screenshot](#screenshot)
 - [Built With](#built-with)
@@ -26,87 +31,132 @@ Provide a short description explaining the what, why, and how of your project. U
 
 ## Installation
 
-What are the steps required to install your project? Provide a step-by-step description of how to get the development environment running.
+To get started with our application, follow these steps:
 
-1. Clone the Repository from GitHub 
-(or) Download Zip Folder from Repository from GitHub
-Open the cloned (or downloaded) repository in any source code editor.
+1. **Clone the Repository from GitHub:** Alternatively, you can download the ZIP folder from the repository's GitHub page.
+   ```bash
+   git clone https://github.com/4funke/Employees-of-funk.co.git
+   ```
+2. **Open the Repository in a Source Code Editor:**
+Open your preferred source code editor (e.g., Visual Studio Code, Sublime Text) and navigate to the cloned repository's directory.
 
-- [Please see, Deployed Application Link](#deployed-application-link)
-- [Please see, GitHub Repository](#github-repository)
+### Additional Resources
+- [Walkthrough Video:](#walkthrough-video) Check out our live application
+- [GitHub Repository:](#github-repository) For more details and to explore the code
 
 ## Usage Instruction: 
+#### Follow these steps to effectively utilize our application:
+1. **Open the Integrated Terminal:** Navigate to the location of the server.js file within the cloned repository and open your integrated terminal.
+2. **Log into Your MySQL Account:** Ensure you are logged into your MySQL account before proceeding with the following steps. This will enable smooth interaction with the database.
+3. **Import Schema and Seeds:** Run the following command to initialize your database schema and populate it with initial data:
+    ```bash
+    mysql -u your-username -p < db/schema.sql 
+    ```
+4. **Install Dependencies:** Install project dependencies using the following command:
+    ```bash
+    npm install 
+    ```
+5. **Start the Application:** Start the application by running the following command:
+    ```bash
+    npm start 
+    ```
+6. **Interact with the Database:** After successfully starting the application, you'll be able to interact with the database. You can view, add, or update employees' records as needed.
 
-Provide instructions and examples for use.
+By following these steps, you'll be seamlessly connected to the database and can efficiently manage employee data. Feel free to explore the various functionalities and enjoy an enhanced organizational experience.
 
-#### Visit the homepage, "Login" or "Sign Up" for an account if you don't already have one.
-1. Visit the deployed application's homepage and login or sign up for an account.
-2. Choose a teacher from the dropdown menu and rate them using the apple scale.
-3. Write a comment about the teacher's performance.
-4. Click the "Post" button to submit your comment and rating.
-5. To review your contributions, click on "Profile." Don't forget to log out when you're done!
-
-## Deployed Application Link:
-[Deployed Application Link](https://shielded-everglades-30738-44134476de15.herokuapp.com/)
+## Walkthrough Video:
+[Walkthrough Video]()
 
 ## GitHub Repository:
-[GitHub Repository](https://github.com/4FunkE/student-marks)
+[GitHub Repository](https://github.com/4FunkE/Employees-of-funk.co)
 
 ## Screenshot
-![image](./public/image/Student-mark-image.png)
+![image](./public/images/employee_db-screenshot.png)
 
 ## Built With:
-- JSON:[ JSON](https://www.npmjs.com/package/json)
-- Dynamic JavaScript
-- Node.js [Version 16.18.1](https://nodejs.org/en/blog/release/v16.18.1/)
-- Bcrypt: [5.1.0](https://www.npmjs.com/package/bcrypt)
-- Connect Session Store using Sequelize: [7.1.7](https://www.npmjs.com/package/connect-session-sequelize)
-- Dotenv: [16.3.1](https://www.npmjs.com/package/dotenv)
-- Express: [4.18.2](https://www.npmjs.com/package/express)
-- Express Handlebars: [7.1.0](https://www.npmjs.com/package/express-handlebars)
-- Express-Session: [1.17.3](https://www.npmjs.com/package/express-session)
-- Node MySql2: [3.5.2](https://www.npmjs.com/package/mysql2)
-- Sequelize: [6.32.1](https://www.npmjs.com/package/sequelize)
-- Visual Studio Code: [Website](https://code.visualstudio.com/)
+This project was developed using the following technologies and tools:
+- [JSON](https://www.npmjs.com/package/json)
+- [Node.js](https://nodejs.org/en/blog/release/v16.18.1/)
+- [Dotenv](https://www.npmjs.com/package/dotenv)
+- [Express](https://www.npmjs.com/package/express)
+- [Node MySql2](https://www.npmjs.com/package/mysql2)
+- [Inquirer](https://www.npmjs.com/package/inquirer/v/8.2.4)
+- [Visual Studio Code](https://code.visualstudio.com/)
+### Technologies and Tools Overview
+- JSON: Used for data representation and exchange.
+- Node.js: The runtime environment for executing JavaScript code on the server.
+- Dotenv:  Enables the usage of environment variables to manage configuration.
+- Express: A fast and minimal web application framework for Node.js.
+- Node MySql2: A MySQL driver for Node.js.
+- Inquirer: Facilitates user interactions in the command-line interface.
+- Visual Studio Code: The integrated development environment used for coding.
 
 ## Credits
 
-List your collaborators, if any, with links to their GitHub profiles.
-
-If you used any third-party assets that require attribution, list the creators with links to their primary web presence in this section.
-
-If you followed tutorials, include links to those here as well.
-
 Collaborators: 
 - AskBCS Learning Assistants
-- Instructor
-- TA
-- Starter code provided by [miniture-eureka](https://github.com/coding-boot-camp/miniature-eureka)
+- Andrew Bautista-Instructor
+- Will-TA
 
 ## License
 
 This application is covered under the MIT license. [![License](https://img.shields.io/badge/License-MIT-blue.svg)](https://opensource.org/licenses/MIT)
 
-The last section of a high-quality README file is the license. This lets other developers know what they can and cannot do with your project. If you need help choosing a license, refer to [https://choosealicense.com/](https://choosealicense.com/).
-
-
 ## Badges
 
 ![badmath](https://img.shields.io/github/languages/top/lernantino/badmath)
 
-Badges aren't necessary, per se, but they demonstrate street cred. Badges let other developers know that you know what you're doing. Check out the badges hosted by [shields.io](https://shields.io/). You may not understand what they all represent now, but you will in time.
-
 ## Features
 
-If your project has a lot of features, list them here.
+Discover the functionalities and capabilities of our application:
+
+- View Employees: Access a comprehensive list of all employees, complete with their details.
+- Add Employee: Seamlessly add new employees to the database, ensuring accurate records.
+- Update Employee: Effortlessly modify existing employee information as needed.
+- View Roles: Explore a catalog of available roles within the company hierarchy.
+- Add Role: Intuitively introduce new roles to the system, tailored to your company's structure.
+- View Departments: Gain insights into various company departments through a comprehensive overview.
+- Add Department: Efficiently create new departments to match your organizational needs.
+
+Our application empowers you with these features, streamlining employee database management and optimizing company operations. Experience enhanced efficiency and organization with every interaction.
 
 ## How to Contribute
 
-If you created an application or package and would like other developers to contribute it, you can include guidelines for how to do so. The [Contributor Covenant](https://www.contributor-covenant.org/) is an industry standard, but you can always write your own if you'd prefer.
+We welcome contributions to enhance and improve our project. Whether you're interested in fixing a bug, implementing new features, or enhancing documentation, your contributions are highly appreciated.
+
+To contribute to our project, follow these steps:
+
+1. Fork the Repository: Fork our repository to your own GitHub account by clicking the "Fork" button.
+2. Clone the Repository: Clone the forked repository to your local machine using:
+    ```bash
+    git clone https://github.com/4funke/Employees-of-funk.co.git 
+    ```
+3. Create a New Branch: Create a new branch to work on your contribution using:
+    ```bash
+    git checkout -b your-feature-branch 
+    ```
+4. Make Changes: Make your desired changes or additions to the codebase.
+5. Test Your Changes: Test your changes thoroughly to ensure they work as expected.
+6. Commit Your Changes: Commit your changes with a clear and concise commit message:
+    ```bash
+    git commit -m "Add: Brief description of your changes" 
+    ```
+7. Push to Your Fork: Push your changes to your forked repository:
+    ```bash
+    git push origin your-feature-branch 
+    ```
+8. Open a Pull Request: Open a pull request from your feature branch to our main repository. Provide a clear title and description for your pull request, outlining the changes you've made.
+9. Review and Feedback: Participate in the discussion, address any feedback, and iterate on your changes as needed.
+
+By following these steps, you contribute to the growth and enhancement of our project. We value your time and effort, and your contributions will make a positive impact.
+
+If you're unsure about where to start or need assistance at any point, feel free to reach out. Together, we can make our project even better!
 
 ## Tests
 
 Go the extra mile and write tests for your application. Then provide examples on how to run them here.
 
+If you would like to test this code. Enter the intergrated terminal. You will need to npm i, then you can run NPM test. This will run test for the code. 
+
 ## Questions
-  For additional questions, contact me through my [GitHub profile](https://github.com/4FunkE) or via email at 4funkecodes@gmail.com.
+For additional questions, contact me through my [GitHub profile](https://github.com/4FunkE) or via email at 4funkecodes@gmail.com.
