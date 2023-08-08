@@ -97,6 +97,7 @@ async function mainMenu() {
 }
 
 // create functions for answers actions
+
 // function to view all Emloyees
 async function viewAllEmployees() {
   try {
@@ -138,6 +139,21 @@ async function viewAllRoles() {
   await mainMenu();
 }
 
+//function to get the role_id based on the role title.
+async function getRoleIdByTitle(roleTitle) {
+  try {
+    const result = await db.query('SELECT id FROM role WHERE title = ?', [roleTitle]);
+    if (result.length === 0) {
+      console.error(`Role with title "${roleTitle}" not found.`);
+      return null; // Return a default value (null) to handle the missing role.
+    }
+    return result[0].id;
+  } catch (error) {
+    console.error('Error fetching roleId:', error);
+    return null; // Return a default value (null) to handle any errors.
+  }
+}
+
 // function to add an Employee
 async function addEmployee() {
   try {
@@ -168,25 +184,20 @@ async function addEmployee() {
       },
       {
         type: 'list',
-        name: 'roleId',
+        name: 'roleTitle',
         message: 'What is the employee\'s role?',
         choices: ['Art Instructor', 'Studio Manager', 'Sculpture Artist', 'Photographer','Printmaker', 'Drawing Instructor', 'Ceramics Artist', 'Gallery Curator', 'Art Educator', 'Art Researcher'],
       },
-      {
-        type: 'list',
-        name: 'managerId',
-        message: 'Who is the employee\'s manager?',
-        choices: ['Emily Funk', 'Brandon Cruz', 'Athena Cruz', 'Noemi Bou', 'Kevin Funk', 'Olivia Funk'],
-      },
     ]);
-    const { firstName, lastName, roleId, managerId } = answers;
-    await connection.query(
-      'INSERT INTO employee (first_name, last_name, role_id, manager_id) VALUES (?, ?, ?, ?)',
-      [firstName, lastName, roleId, managerId]
+    const { firstName, lastName, roleTitle } = answers;
+    const roleId = await getRoleIdByTitle(roleTitle);
+    await db.query(
+      'INSERT INTO employee (first_name, last_name, role_id) VALUES (?, ?, ?)',
+      [firstName, lastName, roleId]
     );
     console.log('Employee added successfully!');
   } catch (error) {
-    console.error('Error:', error);
+    console.error('Employee Error:', error);
   }
   await mainMenu();
 }
@@ -227,8 +238,8 @@ async function addRole() {
       },
     ]);
     const { title, income, department_id } = answers;
-    await connection.query(
-      'INSERT INTO roles (title , salary, department_id) VALUES (?,?,?)',
+    await db.query(
+      'INSERT INTO role (title , salary, department_id) VALUES (?,?,?)',
       [title, income, department_id]
     );
     console.log('Role added successfully.');
@@ -255,8 +266,8 @@ async function addDepartment() {
     });
 
     const departmentName = answers.departmentName;
-    await connection.query(
-      'INSERT INTO departments (name) VALUES (?)',
+    await db.query(
+      'INSERT INTO department (name) VALUES (?)',
       [departmentName]
     );
     console.log('Department added successfully!');
@@ -341,7 +352,7 @@ async function updateRole() {
       break;
     }
 
-    await connection.query(query, [value, id]);
+    await db.query(query, [value, id]);
 
     console.log('Employee updated successfully.');
   } catch (error) {
