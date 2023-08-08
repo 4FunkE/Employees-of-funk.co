@@ -1,3 +1,4 @@
+/* eslint-disable no-use-before-define */
 // Import and require mysql2 and inquirer
 const mysql = require('mysql2');
 const inquirer = require('inquirer');
@@ -84,6 +85,9 @@ async function mainMenu() {
     case 'Exit':
       console.log('Goodbye!');
       db.end(); // Close the database connection before exiting
+      break;
+    default:
+      console.log('Invalid action!');
       break;
     }
   } catch (err) {
