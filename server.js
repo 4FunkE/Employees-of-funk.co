@@ -19,7 +19,7 @@ const db = mysql.createConnection(
   console.log('Connected to the employee database.')
 ).promise(); // Using promises for async/await support
 
-// Connect to the database
+// Connect to the database or throw error
 db.connect((err) => {
   if (err) {
     throw err;
@@ -115,28 +115,27 @@ async function viewAllEmployees() {
 // function to view all departments
 async function viewAllDepartments() {
   try {
-    const [results] = await connection.query('SELECT * FROM departments');
-    console.table(results);
+    const [departments] = await db.query('SELECT * FROM department');
+    console.table(departments);
   } catch (err) {
-    console.error('Error retrieving departments: ', err);
+    console.error('Error retrieving departments', err);
   }
-  mainMenu();
+  await mainMenu();
 }
 
 // function to view all roles if available
 async function viewAllRoles() {
-  const query = `
-      SELECT roles.id, roles.title AS title, roles.salary, departments.name AS department
-      FROM roles
-      INNER JOIN departments ON roles.department_id = departments.id
-    `;
   try {
-    const [results] = await connection.query(query);
-    console.table(results);
+    const [roles] = await db.query(
+      `SELECT role.id, role.title AS title, role.salary, department.name AS department
+      FROM role
+      INNER JOIN department ON role.department_id = department.id`
+    );
+    console.table(roles);
   } catch (err) {
-    console.error('Error retrieving roles: ', err);
+    console.error('Error retrieving roles', err);
   }
-  mainMenu();
+  await mainMenu();
 }
 
 // function to add an Employee
@@ -182,7 +181,7 @@ async function addEmployee() {
     ]);
     const { firstName, lastName, roleId, managerId } = answers;
     await connection.query(
-      'INSERT INTO employees (first_name, last_name, role_id, manager_id) VALUES (?, ?, ?, ?)',
+      'INSERT INTO employee (first_name, last_name, role_id, manager_id) VALUES (?, ?, ?, ?)',
       [firstName, lastName, roleId, managerId]
     );
     console.log('Employee added successfully!');
@@ -291,7 +290,7 @@ async function updateRole() {
 
     switch (roleName) {
     case 'First Name':
-      query = 'UPDATE employees SET first_name = ? WHERE id = ?';
+      query = 'UPDATE employee SET first_name = ? WHERE id = ?';
       value = await inquirer.prompt({
         type: 'input',
         name: 'firstName',
@@ -307,7 +306,7 @@ async function updateRole() {
       value = value.firstName;
       break;
     case 'Last Name':
-      query = 'UPDATE employees SET last_name = ? WHERE id = ?';
+      query = 'UPDATE employee SET last_name = ? WHERE id = ?';
       value = await inquirer.prompt({
         type: 'input',
         name: 'lastName',
@@ -323,7 +322,7 @@ async function updateRole() {
       value = value.lastName;
       break;
     case 'Role ID':
-      query = 'UPDATE employees SET role_id = ? WHERE id = ?';
+      query = 'UPDATE employee SET role_id = ? WHERE id = ?';
       value = await inquirer.prompt({
         type: 'input',
         name: 'roleId',
