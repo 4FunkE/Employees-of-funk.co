@@ -202,6 +202,21 @@ async function addEmployee() {
   await mainMenu();
 }
 
+//function to get the department_id based on the departmentTitle.
+async function getDepartmentIdByTitle(departmentTitle) {
+  try {
+    const depResult = await db.query('SELECT id FROM department WHERE name = ?', [departmentTitle]);
+    if (depResult.length === 0) {
+      console.error(`Role with title "${departmentTitle}" not found.`);
+      return null; // Return a default value (null) to handle the missing role.
+    }
+    return result[0][0].id; //an array inside and array
+  } catch (error) {
+    console.error('Error fetching roleId:', error);
+    return null; // Return a default value (null) to handle any errors.
+  }
+}
+
 // function to add a role
 async function addRole() {
   try {
@@ -232,15 +247,16 @@ async function addRole() {
       },
       {
         type: 'list',
-        name: 'department_id',
+        name: 'departmentTitle',
         message: 'What department does the role belong to?',
         choices: ['Painting', 'Sculpture', 'Photography', 'Printmaking', 'Drawing', 'Ceramics'],
       },
     ]);
-    const { title, income, department_id } = answers;
+    const { title, income, departmentTitle } = answers;
+    const departmentId = await getDepartmentIdByTitle(departmentTitle);
     await db.query(
       'INSERT INTO role (title , salary, department_id) VALUES (?,?,?)',
-      [title, income, department_id]
+      [title, income, departmentId]
     );
     console.log('Role added successfully.');
   } catch (error) {
