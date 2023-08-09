@@ -34,14 +34,14 @@ Thank you for choosing Funk.co for your employee database needs. We look forward
 To get started with our application, follow these steps:
 
 1. **Clone the Repository from GitHub:** Alternatively, you can download the ZIP folder from the repository's GitHub page.
-   ```bash
-   git clone https://github.com/4funke/Employees-of-funk.co.git
-   ```
+```bash
+git clone https://github.com/4funke/Employees-of-funk.co.git
+```
 2. **Open the Repository in a Source Code Editor:**
 Open your preferred source code editor (e.g., Visual Studio Code, Sublime Text) and navigate to the cloned repository's directory.
 
 ### Additional Resources
-- [Walkthrough Video:](#walkthrough-video) Check out our live application
+- [Walkthrough Video:](#walkthrough-video) Check out a live demo of our application
 - [GitHub Repository:](#github-repository) For more details and to explore the code
 
 ## Usage Instruction: 
@@ -49,17 +49,17 @@ Open your preferred source code editor (e.g., Visual Studio Code, Sublime Text) 
 1. **Open the Integrated Terminal:** Navigate to the location of the server.js file within the cloned repository and open your integrated terminal.
 2. **Log into Your MySQL Account:** Ensure you are logged into your MySQL account before proceeding with the following steps. This will enable smooth interaction with the database.
 3. **Import Schema and Seeds:** Run the following command to initialize your database schema and populate it with initial data:
-    ```bash
-    mysql -u your-username -p < db/schema.sql 
-    ```
+```bash
+mysql -u your-username -p < db/schema.sql 
+```
 4. **Install Dependencies:** Install project dependencies using the following command:
-    ```bash
-    npm install 
-    ```
+```bash
+npm install 
+```
 5. **Start the Application:** Start the application by running the following command:
-    ```bash
-    npm start 
-    ```
+```bash
+npm start 
+```
 6. **Interact with the Database:** After successfully starting the application, you'll be able to interact with the database. You can view, add, or update employees' records as needed.
 
 By following these steps, you'll be seamlessly connected to the database and can efficiently manage employee data. Feel free to explore the various functionalities and enjoy an enhanced organizational experience.
@@ -128,23 +128,23 @@ To contribute to our project, follow these steps:
 
 1. Fork the Repository: Fork our repository to your own GitHub account by clicking the "Fork" button.
 2. Clone the Repository: Clone the forked repository to your local machine using:
-    ```bash
-    git clone https://github.com/4funke/Employees-of-funk.co.git 
-    ```
+```bash
+git clone https://github.com/4funke/Employees-of-funk.co.git 
+```
 3. Create a New Branch: Create a new branch to work on your contribution using:
-    ```bash
-    git checkout -b your-feature-branch 
-    ```
+```bash
+git checkout -b your-feature-branch 
+```
 4. Make Changes: Make your desired changes or additions to the codebase.
 5. Test Your Changes: Test your changes thoroughly to ensure they work as expected.
 6. Commit Your Changes: Commit your changes with a clear and concise commit message:
-    ```bash
-    git commit -m "Add: Brief description of your changes" 
-    ```
+```bash
+git commit -m "Add: Brief description of your changes" 
+```
 7. Push to Your Fork: Push your changes to your forked repository:
-    ```bash
-    git push origin your-feature-branch 
-    ```
+```bash
+git push origin your-feature-branch 
+```
 8. Open a Pull Request: Open a pull request from your feature branch to our main repository. Provide a clear title and description for your pull request, outlining the changes you've made.
 9. Review and Feedback: Participate in the discussion, address any feedback, and iterate on your changes as needed.
 
@@ -154,9 +154,7 @@ If you're unsure about where to start or need assistance at any point, feel free
 
 ## Tests
 
-Go the extra mile and write tests for your application. Then provide examples on how to run them here.
-
-If you would like to test this code. Enter the intergrated terminal. You will need to npm i, then you can run NPM test. This will run test for the code. 
+n/a
 
 ## Questions
-For additional questions, contact me through my [GitHub profile](https://github.com/4FunkE) or via email at 4funkecodes@gmail.com.
+If you have any questions or need further assistance, feel free to reach out. You can contact me through my [GitHub profile](https://github.com/4FunkE) or via email at 4funkecodes@gmail.com. I'm here to help and support you in any way I can. Have a funke day!
