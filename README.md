@@ -64,8 +64,8 @@ npm start
 
 By following these steps, you'll be seamlessly connected to the database and can efficiently manage employee data. Feel free to explore the various functionalities and enjoy an enhanced organizational experience.
 
-<!-- ## Walkthrough Video:
-[Walkthrough Video]() -->
+## Walkthrough Video:
+[Walkthrough Video](https://drive.google.com/file/d/1yrz7WXBZnYWIXs9F_yrXrT-nXjv08tSp/view)
 
 ## GitHub Repository:
 [GitHub Repository](https://github.com/4FunkE/Employees-of-funk.co)
