@@ -50,7 +50,6 @@ async function mainMenu() {
         choices: [
           'View All Employees',
           'Add Employee',
-          'Update Employee Role',
           'View All Roles',
           'Add Role',
           'View All Departments',
@@ -66,9 +65,6 @@ async function mainMenu() {
       break;
     case 'Add Employee':
       await addEmployee();
-      break;
-    case 'Update Employee Role':
-      await updateRole();
       break;
     case 'View All Roles':
       await viewAllRoles();
@@ -210,7 +206,7 @@ async function getDepartmentIdByTitle(departmentTitle) {
       console.error(`Role with title "${departmentTitle}" not found.`);
       return null; // Return a default value (null) to handle the missing role.
     }
-    return result[0][0].id; //an array inside and array
+    return depResult[0][0].id; //an array inside and array
   } catch (error) {
     console.error('Error fetching roleId:', error);
     return null; // Return a default value (null) to handle any errors.
@@ -290,91 +286,6 @@ async function addDepartment() {
   } catch (error) {
     console.error('Error:', error);
   }
-  await mainMenu();
-}
-
-//function to updateemployee record
-async function updateRole() {
-  try {
-    const answers = await inquirer.prompt([
-      {
-        type: 'list',
-        name: 'id',
-        message: 'Which employee role do you want to update?',
-        choices: ['Emily Funk', 'Brandon Cruz', 'Brie Funk', 'Athena Cruz', 'Noemi Bou', 'Kevin Funk', 'Olivia Funk', 'Andy BLuz', 'Alex Lemons', 'Cris Beatz'],
-      },
-      {
-        type: 'list',
-        name: 'roleName',
-        message: 'which role would you like to assign the selected employee?',
-        choices: ['Art Instructor', 'Studio Manager', 'Sculpture Artist', 'Photographer','Printmaker', 'Drawing Instructor', 'Ceramics Artist', 'Gallery Curator', 'Art Educator', 'Art Researcher'],
-      },
-    ]);
-
-    const { id, roleName } = answers;
-    let query;
-    let value;
-
-    switch (roleName) {
-    case 'First Name':
-      query = 'UPDATE employee SET first_name = ? WHERE id = ?';
-      value = await inquirer.prompt({
-        type: 'input',
-        name: 'firstName',
-        message: 'Enter the new first name:',
-        validate: (input) => {
-          if (input.trim() !== '') {
-            return true;
-          } else {
-            return 'Please enter a first name.';
-          }
-        },
-      });
-      value = value.firstName;
-      break;
-    case 'Last Name':
-      query = 'UPDATE employee SET last_name = ? WHERE id = ?';
-      value = await inquirer.prompt({
-        type: 'input',
-        name: 'lastName',
-        message: 'Enter the new last name:',
-        validate: (input) => {
-          if (input.trim() !== '') {
-            return true;
-          } else {
-            return 'Please enter a last name.';
-          }
-        },
-      });
-      value = value.lastName;
-      break;
-    case 'Role ID':
-      query = 'UPDATE employee SET role_id = ? WHERE id = ?';
-      value = await inquirer.prompt({
-        type: 'input',
-        name: 'roleId',
-        message: 'Enter the new role ID:',
-        validate: (input) => {
-          if (input.trim() !== '' && !isNaN(input)) {
-            return true;
-          } else {
-            return 'Please enter a valid role ID.';
-          }
-        },
-      });
-      value = value.roleId;
-      break;
-    default:
-      break;
-    }
-
-    await db.query(query, [value, id]);
-
-    console.log('Employee updated successfully.');
-  } catch (error) {
-    console.error('Error:', error);
-  }
-
   await mainMenu();
 }
 
